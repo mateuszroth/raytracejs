@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/head %>
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">RaytraceJS</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>RaytraceJS</h1>
+        <p>Just a simple raytracer written in JavaScript.<br>
+        <small>Project for Computer Graphics laboratory at Poznan University of Technology.</small></p>
+      </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+          <h2>Scene options</h2>
+
+            <div class="col-sm-12">
+              <h3>Camera</h3>
+              <h4>Point</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-center">X</p>
+                  <input id="cameraPointX" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Y</p>
+                  <input id="cameraPointY" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Z</p>
+                  <input id="cameraPointZ" type="number" class="form-control" placeholder="">
+                </div>
+              </div>
+              <h4>Angle</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input id="cameraAngle" type="number" class="form-control" placeholder="">
+                </div>
+              </div>
+              <h4>Vector</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-center">X</p>
+                  <input id="cameraVectorX" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Y</p>
+                  <input id="cameraVectorY" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Z</p>
+                  <input id="cameraVectorZ" type="number" class="form-control" placeholder="">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 text-right">
+                  <button type="button" id="cameraSave" class="btn btn-warning">Save</button>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-sm-12">
+              <h3>Lights</h3>
+              <h4>Point Light 1</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p class="text-center">X</p>
+                  <input id="pointLight1X" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Y</p>
+                  <input id="pointLight1Y" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-sm-4">
+                  <p class="text-center">Z</p>
+                  <input id="pointLight1Z" type="number" class="form-control" placeholder="">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <input type="checkbox" id="dynamic" checked> Dynamic light
+                </div>
+                <div class="col-sm-6 text-right">
+                  <button type="button" id="lightsSave" class="btn btn-warning">Save</button>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+          
+          <div class="col-sm-6">
+            <div class="canvas center-block text-center">
+                <canvas id="scene"></canvas>
+            </div>
+            <div class="navigation center-block text-center">
+                <button class="btn btn-lg btn-success" id="play">play</button>
+                <button class="btn btn-lg btn-danger" id="stop">stop</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <h2>Bibliography</h2>
+            <ul>
+              <li><a href="http://www.macwright.org/literate-raytracer/index.html">Raytracing - Tom MacWright</a></li>
+              <li><a href="http://www.macwright.org/literate-raytracer/vector.html">Vector Operations - Tom MacWright</a></li>
+              <li><a href="http://fuzzyphoton.tripod.com/whatisrt.htm">What is Raytracing? - FuzzyPhoton</a></li>
+              <li><a href="http://fuzzyphoton.tripod.com/rtalgo.htm">Raytracing algorithm - FuzzyPhoton</a></li>
+              <li><a href="http://fuzzyphoton.tripod.com/howtowrt.htm">How to write a Raytracer - FuzzyPhoton</a></li>
+              <li><a href="http://blog.vjeux.com/2012/javascript/javascript-ray-tracer.html">Javascript Ray Tracer - Vjeux</a></li>
+              <li><a href="http://www.slimeland.com/raytrace/help.html">About The JavaScript Raytracer - Slime</a></li>
+              <li><a href="https://www.wikipedia.org/">Wikipedia - a lot of phrases</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+
+    </div>
+
+    <hr>
+
+    <footer>
+        <div class="container">
+            <p>This code and accompanying text is released under CC0, or Public Domain where applicable. <a href="https://github.com/tmcw/literate-raytracer">Based on an open source project by Tom MacWright</a>.</p>
+        </div>
+    </footer>
+
+    <% include partials/scripts %>
+  </body>
+</html>
