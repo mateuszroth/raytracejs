@@ -40,12 +40,12 @@ Vector.subtract = function(a, b) {
     };
 };
 
-// http://en.wikipedia.org/wiki/Dot_product // iloczyn skalarny
+// http://en.wikipedia.org/wiki/Dot_product
 Vector.dotProduct = function(a, b) {
     return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 };
 
-// http://en.wikipedia.org/wiki/Cross_product // iloczyn wektorowy
+// http://en.wikipedia.org/wiki/Cross_product
 Vector.crossProduct = function(a, b) {
     return {
         x: (a.y * b.z) - (a.z * b.y),
@@ -62,14 +62,14 @@ Vector.scale = function(a, multiplier) {
     };
 };
 
-// http://en.wikipedia.org/wiki/Unit_vector // wektor jednostkowy
+// http://en.wikipedia.org/wiki/Unit_vector
 // turn any vector into a vector that has a magnitude of 1
 // https://en.wikipedia.org/wiki/Unit_sphere
 Vector.unitVector = function(a) {
     return Vector.scale(a, 1 / Vector.length(a));
 };
 
-// https://en.wikipedia.org/wiki/Euclidean_vector#Length // długość wektora
+// https://en.wikipedia.org/wiki/Euclidean_vector#Length
 Vector.length = function(a) {
     return Math.sqrt(Vector.dotProduct(a, a));
 };

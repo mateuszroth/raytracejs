@@ -1,5 +1,5 @@
 # raytracejs
-project for CG laboratory
+project for CG laboratory @ Poznan University of Technology (Grafika komputerowa @ Politechnika Poznańska)
 
 ## Installation
 

@@ -1,6 +1,9 @@
+// scene variables
 var sceneCanvas = document.getElementById('scene');
 var width = 240;
 var height = 180;
+
+// camera default variables
 var cameraPointXDefault = -10;
 var cameraPointYDefault = 1.8;
 var cameraPointZDefault = 10;
@@ -9,29 +12,37 @@ var cameraVectorXDefault = -2;
 var cameraVectorYDefault = 3;
 var cameraVectorZDefault = 0;
 
+// lights default variables
 var lightsDefault = [{
     x: -30,
     y: 3,
     z: 20
 }];
 
+// lights variables
 var lightsLocal = [{
     x: parseInt(localStorage['pointLightX']) || lightsDefault[0].x,
     y: parseInt(localStorage['pointLightY']) || lightsDefault[0].y,
     z: parseInt(localStorage['pointLightZ']) || lightsDefault[0].z
-}]
+}];
 
+// scene properties
 sceneCanvas.width = width;
 sceneCanvas.height = height;
 sceneCanvas.style.cssText = 'width: ' + (width) + 'px; height: ' + (height) + 'px';
 
+// canvas variables
 var sceneCanvasContext = sceneCanvas.getContext('2d');
 var data = sceneCanvasContext.getImageData(0, 0, width, height);
+
+// scene object declaration
 var scene = {};
 
+// enable image smoothing
 sceneCanvasContext.mozImageSmoothingEnabled = true;
 sceneCanvasContext.imageSmoothingEnabled = true;
 
+// scene properties definition
 scene.camera = { // point where the camera sits
     point: {
         x: parseInt(localStorage['cameraPointX']) || cameraPointXDefault,
@@ -60,9 +71,9 @@ scene.objects = [{
         y: 103,
         z: 15
     },
-    specular: 0.8,
     lambert: 0.3,
-    ambient: 0.3,
+    ambient: 0.2,
+    specular: 0.8,
     radius: 2.5,
     visible: true
 }, {
@@ -77,9 +88,9 @@ scene.objects = [{
         y: 255,
         z: 50
     },
-    specular: 0.1,
     lambert: 1,
     ambient: 0.1,
+    specular: 0.1,
     radius: 0.2,
     visible: true
 }, {
@@ -94,9 +105,9 @@ scene.objects = [{
         y: 0,
         z: 0
     },
-    specular: 0.1,
     lambert: 1,
     ambient: 0.1,
+    specular: 0.1,
     radius: 0.2,
     visible: true
 }, {
@@ -111,28 +122,41 @@ scene.objects = [{
         y: 150,
         z: 255
     },
-    specular: 0.25,
     lambert: 0.5,
     ambient: 0.2,
+    specular: 0.25,
     radius: 0.7,
     visible: true
 }];
 
+// render function
 function render(scene) {
     var camera = scene.camera;
 
+    // calculates view direction
     var eyeVector = Vector.unitVector(Vector.subtract(camera.vector, camera.point));
+    
+    // calculates image area
     var vpRight = Vector.unitVector(Vector.crossProduct(eyeVector, Vector.UP));
     var vpUp = Vector.unitVector(Vector.crossProduct(vpRight, eyeVector));
 
+    // calculates field of view
     var fovRadians = Math.PI * (camera.fieldOfView / 2) / 180;
+
+    // size ratio
     var heightWidthRatio = height / width;
+    
+    // calculates half of view size
     var halfWidth = Math.tan(fovRadians);
     var halfHeight = heightWidthRatio * halfWidth;
-    var cameraWidth = halfWidth * 1.8;
-    var cameraHeight = halfHeight * 1.8;
-    var pixelWidth = cameraWidth / width;
-    var pixelHeight = cameraHeight / height;
+    
+    // calculates view size
+    var cameraWidth = halfWidth * 2;
+    var cameraHeight = halfHeight * 2;
+    
+    // calculates pixel size
+    var pixelWidth = cameraWidth / (width - 1);
+    var pixelHeight = cameraHeight / (height - 1);
 
     var index;
     var color;
@@ -143,14 +167,17 @@ function render(scene) {
     for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
 
+            // turn the raw pixel x and y values into values from -1 to 1 and use these values to scale the facing-right and facing-up vectors so that we generate versions of the eyeVector that are skewed in each necessary direction
             var xScaled = Vector.scale(vpRight, (x * pixelWidth) - halfWidth);
             var yScaled = Vector.scale(vpUp, (y * pixelHeight) - halfHeight);
 
             ray.vector = Vector.unitVector(Vector.add3(eyeVector, xScaled, yScaled));
 
             color = trace(ray, scene, 0);
+
+            // saves color for pixel
             index = (x * 4) + (y * width * 4),
-                data.data[index + 0] = color.x;
+            data.data[index + 0] = color.x;
             data.data[index + 1] = color.y;
             data.data[index + 2] = color.z;
             data.data[index + 3] = 255;
@@ -185,6 +212,7 @@ function intersectScene(ray, scene) {
 
     var closest = [Infinity, null];
 
+    // looks for closest element
     for (var i = 0; i < scene.objects.length; i++) {
 
         var object = scene.objects[i];
